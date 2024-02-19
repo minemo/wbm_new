@@ -7,7 +7,7 @@ import { rgb, colorsFromRange } from '@thi.ng/color';
 
 const blobRef = shallowRef();
 const camRef = shallowRef();
-const webstate = useState('config');
+const webstate: Ref<import('~/types/custom').WebState> = useState('config');
 const { onLoop } = useRenderLoop();
 
 let mouse = {
@@ -22,7 +22,7 @@ function onMouseMove(e: MouseEvent) {
   mouse.vel = mouse.pos.clone().sub(mouse.prev);
 }
 
-const mobile = webstate.value;
+const mobile = webstate.value.mobile;
 
 const uniforms = {
   uTime: { value: 0 },

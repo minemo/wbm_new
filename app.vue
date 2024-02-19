@@ -10,11 +10,9 @@ useSeoMeta({
   ogDescription: 'The homepage of WorksByM/Minemo.'
 })
 
-
 const headers = useRequestHeaders();
 const userAgent = headers?.["user-agent"] ?? navigator.userAgent;
-
-const webstate = useState('config');
+const webstate: Ref<import('~/types/custom').WebState> = useState('config');
 
 function isMobile() {
   let check = false;
@@ -23,7 +21,9 @@ function isMobile() {
 }
 
 await callOnce(async () => {
-    webstate.value = isMobile();
+    webstate.value = {
+        mobile: isMobile(),
+    }
 })
 </script>
 
