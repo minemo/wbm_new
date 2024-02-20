@@ -6,7 +6,7 @@ import { Vector2, Vector3 } from 'three';
 const planeRef = shallowRef();
 const camRef = shallowRef();
 const webstate: Ref<import('~/types/custom').WebState> = useState('config');
-const { onLoop } = useRenderLoop();
+const { onLoop, pause, resume } = useRenderLoop();
 
 let mouse = {
   pos: new Vector2(0, 0),
@@ -66,6 +66,13 @@ uniform float uTime;uniform vec3 uPosition;varying vec2 vUV;
 ${webstate.value.globalshaderincludes}
 float sdSphere(vec3 p,float s){return length(p)-s;}float sdSphereNoise(vec3 p,float s){return length(p)-fbm(uPosition+p)*s;}vec3 rgbSphere(vec3 p,float t,vec3 mousePos){return vec3(step(sdSphereNoise(p-mousePos*sin(t)*.05,.2),.175),step(sdSphereNoise(p-mousePos*cos(t)*.05,.1),.175),step(sdSphereNoise(p-mousePos*.1,.1),.175));}void main(){vec3 pos=vec3(vUV.x-.5,vUV.y-.5,0),color=rgbSphere(pos,uTime,uPosition);gl_FragColor=vec4(color,1);}
 `;
+
+onBeforeRouteLeave(() => {
+  pause();
+});
+onActivated(() => {
+  resume();
+});
 </script>
 
 <template>
