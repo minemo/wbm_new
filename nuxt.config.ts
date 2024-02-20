@@ -8,9 +8,13 @@ export default defineNuxtConfig({
         lang: 'en'
       }
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: 'page', mode: 'out-in' },
   },
   nitro: {
-    minify: true
+    minify: true,
+    compressPublicAssets: true,
+  },
+  vue: {
+    propsDestructure: true
   }
 })
